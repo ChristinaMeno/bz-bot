@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import subprocess
 import requests
 import sys
 import os
@@ -51,6 +52,7 @@ def update_bugs(token, bugs):
                 r = requests.put(url + "/rest/bug/%d?token=%s" % (k, token), data = {"priority": choice,"severity": choice})
 
         elif pri == "unspecified":
+            pprint (subprocess.run(["/usr/bin/open", "https://bugzilla.redhat.com/show_bug.cgi?id=%d" % k]))
             pprint ("would set priority to %s" % sev)
             choice = input("y / n")
             if choice == 'y':
@@ -59,6 +61,7 @@ def update_bugs(token, bugs):
             else:
                 continue
         elif sev == "unspecified":
+            pprint (subprocess.run(["/usr/bin/open", "https://bugzilla.redhat.com/show_bug.cgi?id=%d" % k]))
             pprint ("would set severity to %s" % pri)
             choice = input("y / n")
             if choice == 'y':
